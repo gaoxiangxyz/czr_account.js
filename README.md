@@ -1,2 +1,2 @@
 # czr_account.js
-![](https://www.travis-ci.org/gaoxiangxyz/czr_account.js.svg?branch=master)
+[![Build Status](https://travis-ci.org/gaoxiangxyz/czr_account.js.svg?branch=master)](https://travis-ci.org/gaoxiangxyz/czr_account.js)
