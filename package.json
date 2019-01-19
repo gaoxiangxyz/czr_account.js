@@ -4,7 +4,7 @@
   "description": "",
   "main": "argon2_test.js",
   "scripts": {
-    "test": "node ./argon2_test.js"
+    "test": "node ./account.js"
   },
   "author": "",
   "license": "ISC",

@@ -2,6 +2,7 @@ const crypto = require("crypto");
 const argon2 = require("argon2");
 const ed25519 = require("ed25519");
 const bs58check = require("bs58check");
+const assert = require("assert");
 
 async function create_account(kdf_salt, iv, prv, password) {
     let kdf_option = {
@@ -142,14 +143,9 @@ async function test_account() {
     console.log("pub: " + kc.pub.toString('hex').toUpperCase());
     let account_c = encode_account(kc.pub);
     console.log("account: " + account_c);
-    if (kc.ciphertext.toString('hex').toUpperCase() == "1533D0D22D09C65110C6C5C1F6A3580C690FB0C444973FE31DC0916EAF2BCC8C"
+    assert.ok(kc.ciphertext.toString('hex').toUpperCase() == "1533D0D22D09C65110C6C5C1F6A3580C690FB0C444973FE31DC0916EAF2BCC8C"
         && kc.pub.toString('hex').toUpperCase() == "34E85B176BE32EFAD87C9EB1EBFC6C54482A6BECBD297F9FDF3BFA8EA342162C"
-        && account_c == "czr_3M3dbuG3hWoeykQroyhJssdS15Bzocyh7wryG75qUWDxoyzBca") {
-        console.log("create_account ok");
-    }
-    else {
-        console.log("create_account fail");
-    }
+        && account_c == "czr_3M3dbuG3hWoeykQroyhJssdS15Bzocyh7wryG75qUWDxoyzBca");
 
 
     console.log("-------------------decrypt_account with right password-------------------------");
@@ -157,10 +153,7 @@ async function test_account() {
     let keypair = ed25519.MakeKeypair(prv1);
     let compare = keypair.publicKey;
     console.log("compare: " + compare.toString('hex').toUpperCase());
-    if (kc.pub.equals(compare))
-        console.log("decrypt_account ok");
-    else
-        console.log("decrypt_account fail");
+    assert.ok(kc.pub.equals(compare));
 
     console.log("-------------------decrypt_account with wrong password-------------------------");
     let wrong_password = "aaaa";
@@ -168,10 +161,7 @@ async function test_account() {
     let keypair2 = ed25519.MakeKeypair(prv2);
     let compare2 = keypair2.publicKey;
     console.log("compare2: " + compare2.toString('hex').toUpperCase());
-    if (kc.pub.equals(compare2))
-        console.log("decrypt_account ok");
-    else
-        console.log("decrypt_account fail");
+    assert.ok(!kc.pub.equals(compare2));
 
 
     console.log("-------------------account encoding-------------------------");
@@ -184,13 +174,8 @@ async function test_account() {
     console.log("encode_account:" + account);//czr_3fNUxH2ix1TvrfEMK3s4SVq3YxEhYjzQxDjnYDtEYYKkYVumhu
 
     let decode_pub = decode_account(account);
-    if (decode_pub && decode_pub.equals(pub)) {
-        console.log("decode_account:" + decode_pub.toString("hex").toUpperCase());
-        console.log("decode_account ok");
-    }
-    else {
-        console.log("decode_account fail");
-    }
+    assert.ok(decode_pub && decode_pub.equals(pub));
+    console.log("decode_account:" + decode_pub.toString("hex").toUpperCase());
 }
 
 
