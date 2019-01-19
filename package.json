@@ -13,6 +13,6 @@
     "base32-encode": "^1.1.0",
     "blakejs": "^1.1.0",
     "bs58check": "^2.1.1",
-    "ed25519": "0.0.4"
+    "ed25519": "git+https://github.com/gaoxiangxyz/ed25519.git"
   }
 }
